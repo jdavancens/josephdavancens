@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Music</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div>
+
+        <!-- Navigation bar -->
+
+        <div>
+            <nav class="navbar navbar-inverse" role="navigation">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html">Joseph Davancens</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="music.html">Music<span class="sr-only">(current)</span></a></li>
+                    <li><a href="software.html">Software</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <br>
+
+        <!-- Composition portfolio: table of compositions, pdf view, composition info -->
+
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-sm-3">
+                    <!-- auto-populate table of pieces-->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Year</th>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                $db = sqlite_open('compositions.db');
+                                $query = 'SELECT title, year, category FROM compositions ORDER BY year DESC';
+                                $result = sqlite_query($db, $query);
+                                $html = '';
+                                while ($row = $result->fetchArray()) {
+                                    $title = $row['title'];
+                                    $year = $row['year'];
+                                    $category = $row['category'];
+                                    $html .= '<tr><td>' . $title . '</td><td>' .  $year . '</td><td>' . $category . '</td></tr>';
+                                    echo $html;
+                                }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-6">
+                    <!-- when choice is made, load and display pdf -->
+                    <h1>A Piece</h1>
+                </div>
+                <div class="col-sm-3">
+                    <!-- when choice is made, load and display info -->
+                    <p>Some info</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Doombird -->
+
+        <div class="container text-center">
+            <h1>Doombird</h1>
+            <ul style="list-style-type:none">
+                <li>
+                    <a href="https://geo.itunes.apple.com/us/album/overflowing-single/id1032654117?mt=1&app=music">
+                        <img src="http://is4.mzstatic.com/image/thumb/Music6/v4/78/58/d0/7858d0c5-91b0-425e-0f90-5b4f92e64ddb/source/400x40000bb.png" width="198" height="198">
+                    </a>
+                </li>
+                <br>
+                <li>
+                    <a href="https://geo.itunes.apple.com/us/album/cygnus/id688092655?mt=1&app=music">
+                        <img src="http://is1.mzstatic.com/image/thumb/Music6/v4/a6/4e/a4/a64ea420-3f40-2fdc-cb96-bd58c35a3f95/source/400x40000bb.png" width="198" height="198">
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+
+</html>
